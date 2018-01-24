@@ -7,8 +7,7 @@ from mysql.connector import errorcode
 def createConn():
     #try:
     #cnx = mysql.connector.connect(user=cf.username,password=cf.password,host=cf.host,database=cf.db)
-    cnx = mysql.connector.connect(user=cf.username,password=cf.password,host=cf.host,database=cf.db)
-    return cnx
+    
         # cur = cnx.cursor()
         # cur.execute("select * from test")
         # for col1,col2 in cur:
@@ -32,12 +31,3 @@ for col1,col2 in cur:
 
 cur.close()
 createConn().close
-
-
-
-
-
-
-
-
-
