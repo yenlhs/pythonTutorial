@@ -1,33 +1,20 @@
-import mysql.connector
-import configDB as cf
-from mysql.connector import errorcode
+from MyDatabase import MyDB
+sqlline = """select * from test"""
+a = MyDB()
+
+a.query(sqlline)
+
+# result = a.listColumns()
+# for column in result:
+#     print(column)
 
 
+#returns all the data from the execution of the query above
+result = a.getalldata()
 
-def createConn():
-    #try:
-    #cnx = mysql.connector.connect(user=cf.username,password=cf.password,host=cf.host,database=cf.db)
-    
-        # cur = cnx.cursor()
-        # cur.execute("select * from test")
-        # for col1,col2 in cur:
-        #     print(col1,col2)
+for row in result:
+    print(row)
 
-    # except mysql.connector.Error as err:
-    #     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-    #         print("Something is wrong with your username and password")
-    #     elif err.errno == errorcode.ER_BAD_DB_ERROR:
-    #         print("Database does not exist")
-    #     else:
-    #         print(err)
-    # else:
-    #     cnx.close()
 
-a = createConn()
-cur = a.cursor()
-cur.execute("select * from test")        
-for col1,col2 in cur:
-    print(col1,col2)
-
-cur.close()
-createConn().close
+#this is going to delete the database object
+a.__del__
