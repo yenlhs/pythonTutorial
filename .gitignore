@@ -1,3 +1,4 @@
 database/__pycache__/
 database/mysql-sample-db
 database/mysqlsampledatabase.sql
+database/test.csv
