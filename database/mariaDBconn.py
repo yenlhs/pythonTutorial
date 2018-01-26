@@ -1,5 +1,5 @@
 from MyDatabase import MyDB
-sqlline = """select * from test"""
+sqlline = """select * from employees"""
 a = MyDB()
 
 a.query(sqlline)

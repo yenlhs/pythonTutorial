@@ -18,9 +18,6 @@ class MyDB:
                 print("Database does not exist")
             else:
                 print(err)
-        # else:
-        #     self._db_connection.close()
-
 
     def query(self, query):
         return self._db_cur.execute(query)
