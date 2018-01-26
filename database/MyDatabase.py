@@ -25,8 +25,11 @@ class MyDB:
     def getalldata(self):
         return self._db_cur.fetchall()
 
-    # def listColumns(self):
-    #     return self._db_cur.column_names()
+    def listColumns(self):
+        return self._db_cur.column_names()
+
+    def dbcommit(self):
+        self._db_connection.commit()
 
     def __del__(self):
         self._db_connection.close()
