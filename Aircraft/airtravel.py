@@ -15,7 +15,7 @@ class Flight:
         self._aircraft = aircraft
 
         rows, seats = self._aircraft.seating_plan()
-        self._seating_plan = [None] + [{letter: None for letter in seats} for _ in rows]
+        self._seating = [None] + [{letter: None for letter in seats} for _ in rows]
 
     def number(self):
         return self._number
@@ -53,7 +53,7 @@ class Flight:
         return row, letter
 
 
-    def allocate_seat(self, seat,passenger)
+    def allocate_seat(self, seat, passenger):
         ''' Allocate a seat to a passenger. 
         Args:
             seat: A seat designator such as '12C' or '21F'.
@@ -63,7 +63,7 @@ class Flight:
             ValueError: if the seat is unavailable.
         '''
 
-        rows, seat_letters = self._parse_seat(seat)
+        row, letter = self._parse_seat(seat)
 
         if self._seating[row][letter] is not None:
             raise ValueError("Seat {} alread occupied".format(seat))
@@ -88,6 +88,11 @@ class Flight:
         
         self._seating[from_row][from_letter] = self._seating[from_row][from_letter]
         self._seating[from_row][from_letter] = None
+    
+    def num_available_seats(self):
+        return sum(sum(1 for s in row.values() if s is None)
+                    for row in self._seating
+                    if row is not None)
 
 
 class Aircraft:
@@ -106,5 +111,16 @@ class Aircraft:
 
     def seating_plan(self):
         return (range(1, self._num_rows + 1), "ABCDEFGHJK"[:self._num_seats_per_row])
+
+
+
+def make_flight():
+    f = Flight("BA758", Aircraft("G-EUPT", "Airbus A319", num_rows=22, num_seats_per_row=6))
+    f.allocate_seat('12A', 'Guido Van Rossum')
+    f.allocate_seat('15F', 'Bjarne Stroustrup')
+    f.allocate_seat('15E', 'Anders Hejlsberg')
+    f.allocate_seat('1C', 'John McCarthy')
+    f.allocate_seat('1D', 'Richard Hickey')
+    return f
 
         
