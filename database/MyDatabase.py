@@ -16,14 +16,27 @@ class MyDB:
                 print("Something is wrong with your username and password")
             elif err.errno == errorcode.ER_BAD_DB_ERROR:
                 print("Database does not exist")
+            elif err.errno == errorcode.CR_CONN_HOST_ERROR:
+                print("Database is unavailable. It may be down")
             else:
-                print(err)
+                print("Something went wrong: {}".format(err))
 
     def query(self, query):
-        return self._db_cur.execute(query)
+        try:
+            return self._db_cur.execute(query)
+        except mysql.connector.Error as err:
+            if err.errno == errorcode.ER_PARSE_ERROR:
+                print("Error in SQL statement")
+        # except mysql.connector.Error as err:
+        #     print(err)
+        #     print(err.errno)
+            
 
     def getalldata(self):
-        return self._db_cur.fetchall()
+        try:
+            return self._db_cur.fetchall()
+        except:
+            print("Unable to get data")
 
     def listColumns(self):
         return self._db_cur.column_names()
@@ -31,5 +44,8 @@ class MyDB:
     def dbcommit(self):
         self._db_connection.commit()
 
-    def __del__(self):
+    def dbclose(self):
         self._db_connection.close()
+
+    # def __del__(self):
+    #     self._db_connection.close()

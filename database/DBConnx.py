@@ -1,22 +1,19 @@
-import cx_Oracle
+import mysql.connector
 import configDB as cf
-
 
 class DBConnx:
 
-    def __init__(self,cnx):
-        self.cnx = cnx
-
     cnx = ''
 
-    def createConnx():
-        cnx = mysql.connector.connect(user=cf.username,password=cf.password,host=cf.host,database=cf.db)
-        return cnx
+    def __init__(self):
+        self.cnx = mysql.connector
 
-    def closeConnx():
-        cnx.clo
-    
-    def getDBData():
+    def createConnx(self):
+        self.cnx = mysql.connector.connect(user=cf.username,password=cf.password,host=cf.host,database=cf.db)
+        return self.cnx
+
+    def closeConnx(self):
+        self.cnx.close()
 
 
     
